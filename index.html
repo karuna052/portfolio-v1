@@ -1,13 +1,439 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Wallpaper App</title>
+    <title>Karuna Sharma | Aspiring Full Stack Developer</title>
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/src/style.css" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+  <body class="page-loading">
+    <!-- Custom Scroll Progress Bar -->
+    <div class="scroll-progress-bar" id="scrollProgress"></div>
+
+    <!-- Glowing Custom Cursor -->
+    <div class="custom-cursor-dot" id="cursorDot"></div>
+    <div class="custom-cursor-outline" id="cursorOutline"></div>
+
+    <!-- Animated Background Particles Canvas -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Floating Background Glassmorphism Blobs -->
+    <div class="floating-blobs-container">
+      <div class="blob blob-purple"></div>
+      <div class="blob blob-cyan"></div>
+      <div class="blob blob-blue"></div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="glass-header">
+      <div class="nav-container">
+        <a href="#home" class="logo">
+          Karuna<span class="accent">.dev</span>
+        </a>
+        <nav class="nav-links" id="navLinks">
+          <a href="#home" class="nav-item active">Home</a>
+          <a href="#about" class="nav-item">About</a>
+          <a href="#skills" class="nav-item">Skills</a>
+          <a href="#education" class="nav-item">Education</a>
+          <a href="#journey" class="nav-item">Journey</a>
+          <a href="#contact" class="nav-item">Contact</a>
+        </nav>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle Menu">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main>
+      <!-- Hero Section -->
+      <section id="home" class="hero-section">
+        <div class="hero-container">
+          <div class="hero-content reveal">
+            <span class="badge">Welcome to my space</span>
+            <h1 class="hero-title">
+              Hi, I'm <span class="gradient-text animated-gradient">Karuna Sharma</span>
+            </h1>
+            <div class="hero-role-strip">
+              <span>B.Tech CSE Student</span>
+              <span class="role-dot">•</span>
+              <span>Aspiring Full Stack Developer</span>
+              <span class="role-dot">•</span>
+              <span>Open Source Enthusiast</span>
+            </div>
+            <h2 class="hero-subtitle">
+              <span id="typewriter" class="accent-text"></span><span class="cursor-blink">|</span>
+            </h2>
+            <p class="hero-description">
+              Second-year B.Tech CSE student passionate about Web Development, Open Source, and Hackathons. I love learning in public and building things that matter.
+            </p>
+            <div class="hero-ctas">
+              <a href="#journey" class="btn btn-primary" id="btn-projects">
+                <i data-lucide="rocket"></i> View Projects
+              </a>
+              <a href="#" class="btn btn-glass" id="btn-resume" aria-label="Download Resume">
+                <i data-lucide="file-text"></i> Resume
+              </a>
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="btn btn-glass" id="btn-github">
+                <i data-lucide="github"></i> GitHub
+              </a>
+              <a href="https://www.linkedin.com/in/karuna-sharma-67133437b" target="_blank" rel="noopener noreferrer" class="btn btn-glass" id="btn-linkedin">
+                <i data-lucide="linkedin"></i> LinkedIn
+              </a>
+            </div>
+          </div>
+          <div class="hero-image-container reveal">
+            <div class="illustration-wrapper avatar-hover-glow">
+              <div class="illustration-glow"></div>
+              <div class="avatar-radial-bg"></div>
+              <img src="/src/assets/developer_hero.png" alt="Karuna's Developer Avatar" class="illustration-img" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Me Section -->
+      <section id="about" class="about-section">
+        <div class="section-container">
+          <div class="section-header reveal">
+            <span class="section-tag">Who I Am</span>
+            <h2 class="section-title gradient-text">About Me</h2>
+            <div class="section-divider"></div>
+          </div>
+          
+          <div class="about-grid">
+            <div class="about-text-card glass-card reveal">
+              <div class="card-icon-header">
+                <i data-lucide="user" class="card-icon text-purple"></i>
+              </div>
+              <h3>My Story</h3>
+              <p>
+                I am a second-year B.Tech Computer Science student driven by a deep curiosity for building things that live on the web. My tech journey kicked off with solving algorithmic problems in <strong>C++</strong>, which taught me structural logic and computational efficiency.
+              </p>
+              <p>
+                As I discovered the creative potential of frontend development, I fell in love with <strong>HTML</strong> and <strong>CSS</strong>. Today, I combine structural logic with beautiful user experiences, striving to grow into a versatile Full Stack Developer.
+              </p>
+              <p>
+                A core belief of mine is <strong>"learning in public."</strong> By documenting my journey and sharing milestones on LinkedIn, I hold myself accountable, connect with industry leaders, and contribute to the developer community.
+              </p>
+            </div>
+
+            <div class="about-stats-grid">
+              <div class="stat-card glass-card reveal">
+                <div class="stat-icon-wrapper text-cyan">
+                  <i data-lucide="graduation-cap"></i>
+                </div>
+                <div class="stat-number">2nd Year</div>
+                <div class="stat-label">B.Tech CSE Student</div>
+              </div>
+              
+              <div class="stat-card glass-card reveal">
+                <div class="stat-icon-wrapper text-purple">
+                  <i data-lucide="code-2"></i>
+                </div>
+                <div class="stat-number">6+</div>
+                <div class="stat-label">Tech Tools & Languages</div>
+              </div>
+
+              <div class="stat-card glass-card reveal">
+                <div class="stat-icon-wrapper text-blue">
+                  <i data-lucide="users"></i>
+                </div>
+                <div class="stat-number">Community</div>
+                <div class="stat-label">Hackathons & Open Source</div>
+              </div>
+
+              <div class="stat-card glass-card reveal">
+                <div class="stat-icon-wrapper text-cyan">
+                  <i data-lucide="activity"></i>
+                </div>
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Passion & Dedication</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills Section -->
+      <section id="skills" class="skills-section">
+        <div class="section-container">
+          <div class="section-header reveal">
+            <span class="section-tag">What I Work With</span>
+            <h2 class="section-title gradient-text">Technical Skills</h2>
+            <div class="section-divider"></div>
+          </div>
+
+          <div class="skills-grid">
+            <!-- C++ Card -->
+            <div class="skill-card glass-card reveal">
+              <div class="skill-glow-layer glow-purple"></div>
+              <div class="skill-icon-box bg-purple-trans">
+                <i data-lucide="braces" class="text-purple"></i>
+              </div>
+              <h3 class="skill-name">C++</h3>
+              <p class="skill-desc">Object-oriented language used for system programming, game engines, and highly efficient algorithms.</p>
+              <div class="skill-tag">Language</div>
+            </div>
+
+            <!-- HTML Card -->
+            <div class="skill-card glass-card reveal">
+              <div class="skill-glow-layer glow-cyan"></div>
+              <div class="skill-icon-box bg-cyan-trans">
+                <i data-lucide="file-code" class="text-cyan"></i>
+              </div>
+              <h3 class="skill-name">HTML</h3>
+              <p class="skill-desc">The backbone of web content, structure, and accessibility, enabling robust browser experiences.</p>
+              <div class="skill-tag">Frontend</div>
+            </div>
+
+            <!-- CSS Card -->
+            <div class="skill-card glass-card reveal">
+              <div class="skill-glow-layer glow-blue"></div>
+              <div class="skill-icon-box bg-blue-trans">
+                <i data-lucide="palette" class="text-blue"></i>
+              </div>
+              <h3 class="skill-name">CSS</h3>
+              <p class="skill-desc">Styling sheet used for layout control, premium animations, typography, and beautiful visuals.</p>
+              <div class="skill-tag">Frontend</div>
+            </div>
+
+            <!-- Git Card -->
+            <div class="skill-card glass-card reveal">
+              <div class="skill-glow-layer glow-purple"></div>
+              <div class="skill-icon-box bg-purple-trans">
+                <i data-lucide="git-branch" class="text-purple"></i>
+              </div>
+              <h3 class="skill-name">Git</h3>
+              <p class="skill-desc">Distributed version control system to track file modifications and manage collaborative changes.</p>
+              <div class="skill-tag">Tool</div>
+            </div>
+
+            <!-- GitHub Card -->
+            <div class="skill-card glass-card reveal">
+              <div class="skill-glow-layer glow-cyan"></div>
+              <div class="skill-icon-box bg-cyan-trans">
+                <i data-lucide="github" class="text-cyan"></i>
+              </div>
+              <h3 class="skill-name">GitHub</h3>
+              <p class="skill-desc">Cloud-based code hosting platform for open-source contributions, code management, and collaboration.</p>
+              <div class="skill-tag">Platform</div>
+            </div>
+
+            <!-- VS Code Card -->
+            <div class="skill-card glass-card reveal">
+              <div class="skill-glow-layer glow-blue"></div>
+              <div class="skill-icon-box bg-blue-trans">
+                <i data-lucide="layout" class="text-blue"></i>
+              </div>
+              <h3 class="skill-name">VS Code</h3>
+              <p class="skill-desc">Modern extensible code editor customized with essential extensions for rapid development.</p>
+              <div class="skill-tag">IDE</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Education Section -->
+      <section id="education" class="education-section">
+        <div class="section-container">
+          <div class="section-header reveal">
+            <span class="section-tag">My Academy</span>
+            <h2 class="section-title gradient-text">Education</h2>
+            <div class="section-divider"></div>
+          </div>
+
+          <div class="education-timeline reveal">
+            <div class="timeline-bar"></div>
+            <div class="timeline-node">
+              <div class="node-glow"></div>
+              <div class="node-dot"></div>
+              <div class="timeline-content glass-card">
+                <div class="education-meta">
+                  <span class="edu-duration">2024 - Present</span>
+                  <span class="edu-status">Currently Enrolled</span>
+                </div>
+                <h3 class="edu-degree">B.Tech Computer Science Engineering</h3>
+                <h4 class="edu-inst text-cyan">Second Year Student</h4>
+                <p class="edu-details">
+                  Engaged in fundamental computer science coursework. Diving deep into system design principles, software structures, and structural algorithms. Exploring software construction paradigms while maintaining hands-on web projects.
+                </p>
+                <div class="edu-focus-badges">
+                  <span>C++ Programming</span>
+                  <span>Data Structures & Algorithms</span>
+                  <span>Computer Architecture</span>
+                  <span>Web Basics</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Learning Journey Section -->
+      <section id="journey" class="journey-section">
+        <div class="section-container">
+          <div class="section-header reveal">
+            <span class="section-tag">Growth Path</span>
+            <h2 class="section-title gradient-text">Learning Journey</h2>
+            <div class="section-divider"></div>
+          </div>
+
+          <div class="journey-cards-container">
+            <!-- DSA Focus -->
+            <div class="journey-card glass-card reveal">
+              <div class="journey-status">Active Focus</div>
+              <div class="journey-header">
+                <i data-lucide="binary" class="text-purple"></i>
+                <h3>C++ & DSA</h3>
+              </div>
+              <p>
+                Currently mastering linear and non-linear data structures (arrays, linked lists, stacks, trees, graphs) along with fundamental search/sort algorithms. Solving coding problems daily to enhance logical clarity.
+              </p>
+            </div>
+
+            <!-- Web Development Focus -->
+            <div class="journey-card glass-card reveal">
+              <div class="journey-status">Active Focus</div>
+              <div class="journey-header">
+                <i data-lucide="layers" class="text-cyan"></i>
+                <h3>Web Development Basics</h3>
+              </div>
+              <p>
+                Diving into HTML5 and semantic templates to structure pages correctly. Building sleek CSS3 mockups to master responsive grids, custom styling variables, modern flex layouts, and smooth transition properties.
+              </p>
+            </div>
+
+            <!-- Professional Dev Skills Focus -->
+            <div class="journey-card glass-card reveal">
+              <div class="journey-status">Ongoing</div>
+              <div class="journey-header">
+                <i data-lucide="git-merge" class="text-blue"></i>
+                <h3>Dev Environment & Collaboration</h3>
+              </div>
+              <p>
+                Adopting Git command structures for granular local commits and utilizing GitHub for repository backups. Structuring modern code workspaces inside VS Code for rapid visual iterations.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="contact-section">
+        <div class="section-container">
+          <div class="section-header reveal">
+            <span class="section-tag">Let's Connect</span>
+            <h2 class="section-title gradient-text">Contact</h2>
+            <div class="section-divider"></div>
+          </div>
+
+          <div class="contact-grid">
+            <div class="contact-info reveal">
+              <h3>Let's collaborate on code!</h3>
+              <p class="contact-subtext">
+                I'm always open to discussing web development concepts, hackathon teams, open-source projects, or new tech opportunities. Feel free to reach out through any of these platforms!
+              </p>
+              
+              <div class="info-links-container">
+                <!-- Email Link -->
+                <a href="mailto:karunasharm7011@gmail.com" class="info-link-card glass-card">
+                  <div class="info-icon bg-purple-trans text-purple">
+                    <i data-lucide="mail"></i>
+                  </div>
+                  <div class="info-details">
+                    <span class="info-label">Email Me</span>
+                    <span class="info-value">karunasharm7011@gmail.com</span>
+                  </div>
+                  <div class="info-arrow">
+                    <i data-lucide="chevron-right"></i>
+                  </div>
+                </a>
+
+                <!-- LinkedIn Link -->
+                <a href="https://www.linkedin.com/in/karuna-sharma-67133437b" target="_blank" rel="noopener noreferrer" class="info-link-card glass-card">
+                  <div class="info-icon bg-cyan-trans text-cyan">
+                    <i data-lucide="linkedin"></i>
+                  </div>
+                  <div class="info-details">
+                    <span class="info-label">LinkedIn</span>
+                    <span class="info-value">Connect on LinkedIn</span>
+                  </div>
+                  <div class="info-arrow">
+                    <i data-lucide="chevron-right"></i>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form-container glass-card reveal">
+              <form id="contactForm" class="contact-form">
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <div class="input-wrapper">
+                    <i data-lucide="user" class="input-icon"></i>
+                    <input type="text" id="name" required placeholder="John Doe" />
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label for="email">Email Address</label>
+                  <div class="input-wrapper">
+                    <i data-lucide="mail" class="input-icon"></i>
+                    <input type="email" id="email" required placeholder="john@example.com" />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="message">Message</label>
+                  <div class="input-wrapper">
+                    <i data-lucide="message-square" class="input-icon textarea-icon"></i>
+                    <textarea id="message" required rows="5" placeholder="Hey, let's connect..."></textarea>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-submit">
+                  <span>Send Message</span> <i data-lucide="send"></i>
+                </button>
+              </form>
+              <div id="formFeedback" class="form-feedback hidden glass-card">
+                <i data-lucide="check-circle" class="text-cyan feedback-icon"></i>
+                <div class="feedback-text">
+                  <h4>Message Sent Successfully!</h4>
+                  <p>Thank you for reaching out. I'll get back to you as soon as possible!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-footer">
+      <div class="footer-container">
+        <p class="footer-logo">Karuna<span class="accent">.dev</span></p>
+        <p class="footer-text">Made with <i data-lucide="heart" class="heart-icon"></i> using HTML, CSS & Vanilla JS.</p>
+        <p class="footer-copy">&copy; 2026 Karuna Sharma. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Back to Top Floating Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Scroll to top">
+      <i data-lucide="arrow-up"></i>
+    </button>
+
+    <!-- Main Script -->
+    <script type="module" src="/src/main.js"></script>
   </body>
 </html>
