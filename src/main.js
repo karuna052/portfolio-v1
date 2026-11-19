@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCursorCompanion();
   initCopyEmail();
   initProjectSpotlight();
+  initMascot();
   checkResume();
 
   const year = document.getElementById('year');
@@ -324,6 +325,44 @@ function initProjectSpotlight() {
       card.style.setProperty('--mx', `${event.clientX - rect.left}px`);
       card.style.setProperty('--my', `${event.clientY - rect.top}px`);
     });
+  });
+}
+
+/* -------------------------------------------------------------
+   MASCOT: small hover reactions, no continuous pointer tracking
+------------------------------------------------------------- */
+function initMascot() {
+  const mascot = document.getElementById('mascot');
+  if (!mascot || prefersReducedMotion) return;
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+  let peekTimer;
+
+  document.querySelectorAll('.project-card').forEach((card) => {
+    card.addEventListener('mouseenter', () => {
+      window.clearTimeout(peekTimer);
+      mascot.classList.add('is-peeking');
+    });
+
+    card.addEventListener('mouseleave', () => {
+      peekTimer = window.setTimeout(() => mascot.classList.remove('is-peeking'), 260);
+    });
+  });
+
+  const interactiveSelector = [
+    '.brand',
+    '.nav-link',
+    '.btn',
+    '.project-link',
+    '.contact-row',
+    '.copy-btn',
+    '.scroll-cue',
+    '.back-to-top',
+  ].join(', ');
+
+  document.querySelectorAll(interactiveSelector).forEach((el) => {
+    el.addEventListener('mouseenter', () => mascot.classList.add('is-waving'));
+    el.addEventListener('mouseleave', () => mascot.classList.remove('is-waving'));
   });
 }
 
