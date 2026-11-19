@@ -329,40 +329,177 @@ function initProjectSpotlight() {
 }
 
 /* -------------------------------------------------------------
-   MASCOT: small hover reactions, no continuous pointer tracking
+   MASCOT: eased pointer following plus playful hover reactions
 ------------------------------------------------------------- */
 function initMascot() {
   const mascot = document.getElementById('mascot');
   if (!mascot || prefersReducedMotion) return;
+
+  initMascotReactions(mascot);
+
   if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  initMascotFollow(mascot);
+}
 
-  let peekTimer;
+const MASCOT_REACT_SELECTOR = 'a, button, .project-card, .contact-row, .scroll-cue';
+const MASCOT_PEEK_SELECTOR = '.project-card';
 
-  document.querySelectorAll('.project-card').forEach((card) => {
-    card.addEventListener('mouseenter', () => {
-      window.clearTimeout(peekTimer);
-      mascot.classList.add('is-peeking');
-    });
+function initMascotReactions(mascot) {
+  let peekTimer = 0;
 
-    card.addEventListener('mouseleave', () => {
-      peekTimer = window.setTimeout(() => mascot.classList.remove('is-peeking'), 260);
-    });
-  });
+  document.addEventListener(
+    'pointerover',
+    (event) => {
+      const target = event.target instanceof Element ? event.target : null;
+      if (!target) return;
 
-  const interactiveSelector = [
-    '.brand',
-    '.nav-link',
-    '.btn',
-    '.project-link',
-    '.contact-row',
-    '.copy-btn',
-    '.scroll-cue',
-    '.back-to-top',
-  ].join(', ');
+      if (target.closest(MASCOT_PEEK_SELECTOR)) {
+        window.clearTimeout(peekTimer);
+        mascot.classList.add('is-peeking');
+      }
 
-  document.querySelectorAll(interactiveSelector).forEach((el) => {
-    el.addEventListener('mouseenter', () => mascot.classList.add('is-waving'));
-    el.addEventListener('mouseleave', () => mascot.classList.remove('is-waving'));
+      if (target.closest(MASCOT_REACT_SELECTOR)) {
+        mascot.classList.add('is-waving');
+      }
+    },
+    { passive: true }
+  );
+
+  document.addEventListener(
+    'pointerout',
+    (event) => {
+      const target = event.target instanceof Element ? event.target : null;
+      if (!target) return;
+
+      const card = target.closest(MASCOT_PEEK_SELECTOR);
+      if (card && !card.contains(event.relatedTarget)) {
+        peekTimer = window.setTimeout(() => mascot.classList.remove('is-peeking'), 220);
+      }
+
+      const interactive = target.closest(MASCOT_REACT_SELECTOR);
+      if (interactive && !interactive.contains(event.relatedTarget)) {
+        mascot.classList.remove('is-waving');
+      }
+    },
+    { passive: true }
+  );
+}
+
+function initMascotFollow(mascot) {
+  const EASE = 0.16;
+  const OFFSET_X = 20;
+  const OFFSET_Y = 18;
+  const EDGE = 10;
+  const REST_LEFT = 16;
+  const REST_BOTTOM = 14;
+
+  let width = mascot.offsetWidth || 52;
+  let height = mascot.offsetHeight || 52;
+  let currentX = 0;
+  let currentY = 0;
+  let targetX = 0;
+  let targetY = 0;
+  let placed = false;
+  let frame = 0;
+  let lastTime = 0;
+
+  const maxX = () => Math.max(EDGE, window.innerWidth - width - EDGE);
+  const maxY = () => Math.max(EDGE, window.innerHeight - height - EDGE);
+  const clampX = (value) => Math.min(Math.max(value, EDGE), maxX());
+  const clampY = (value) => Math.min(Math.max(value, EDGE), maxY());
+
+  const paint = () => {
+    mascot.style.transform = `translate3d(${currentX.toFixed(2)}px, ${currentY.toFixed(2)}px, 0)`;
+  };
+
+  const stop = () => {
+    if (frame) window.cancelAnimationFrame(frame);
+    frame = 0;
+    lastTime = 0;
+  };
+
+  const step = (time) => {
+    frame = 0;
+    const delta = lastTime ? Math.min(time - lastTime, 64) : 16.7;
+    lastTime = time;
+
+    // Frame-rate independent easing, so the lag feels the same at any refresh rate.
+    const amount = 1 - Math.pow(1 - EASE, delta / 16.7);
+    currentX += (targetX - currentX) * amount;
+    currentY += (targetY - currentY) * amount;
+
+    if (Math.abs(targetX - currentX) + Math.abs(targetY - currentY) < 0.2) {
+      currentX = targetX;
+      currentY = targetY;
+      paint();
+      lastTime = 0;
+      return; // settled: idle until the pointer moves again
+    }
+
+    paint();
+    frame = window.requestAnimationFrame(step);
+  };
+
+  const start = () => {
+    if (frame || document.hidden) return;
+    lastTime = 0;
+    frame = window.requestAnimationFrame(step);
+  };
+
+  const aimAt = (clientX, clientY) => {
+    // Sit diagonally clear of the pointer, flipping sides near the viewport edges.
+    let nextX = clientX + OFFSET_X;
+    if (nextX + width > window.innerWidth - EDGE) nextX = clientX - OFFSET_X - width;
+
+    let nextY = clientY + OFFSET_Y;
+    if (nextY + height > window.innerHeight - EDGE) nextY = clientY - OFFSET_Y - height;
+
+    targetX = clampX(nextX);
+    targetY = clampY(nextY);
+  };
+
+  const onPointerMove = (event) => {
+    if (event.pointerType === 'touch') return;
+
+    if (!placed) {
+      const rect = mascot.getBoundingClientRect();
+      currentX = rect.left;
+      currentY = rect.top;
+      placed = true;
+      mascot.classList.add('is-tracking');
+      paint();
+    }
+
+    aimAt(event.clientX, event.clientY);
+    start();
+  };
+
+  const onPointerLeave = () => {
+    if (!placed) return;
+    targetX = clampX(REST_LEFT);
+    targetY = clampY(window.innerHeight - height - REST_BOTTOM);
+    start();
+  };
+
+  const onResize = () => {
+    width = mascot.offsetWidth || width;
+    height = mascot.offsetHeight || height;
+    if (!placed) return;
+
+    currentX = clampX(currentX);
+    currentY = clampY(currentY);
+    targetX = clampX(targetX);
+    targetY = clampY(targetY);
+    paint();
+    start();
+  };
+
+  window.addEventListener('pointermove', onPointerMove, { passive: true });
+  window.addEventListener('resize', onResize, { passive: true });
+  document.documentElement.addEventListener('pointerleave', onPointerLeave);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stop();
+    else if (placed) start();
   });
 }
 
