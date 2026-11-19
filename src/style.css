@@ -19,12 +19,14 @@
   --lavender-light: #c4b5fd;
   --cyan: #22d3ee;
   --blue: #6366f1;
-  --violet: #a78bfa;
-  --green: #22d3ee;
 
   --text: #e9e8f5;
   --muted: #a1a1aa;
   --dim: #85858f;
+  --dim-2: #6b6b78;
+  --ink: #0d0f16;
+  --ink-soft: #14161f;
+  --neutral: #3a3d4d;
 
   --radius: 16px;
   --radius-sm: 10px;
@@ -145,7 +147,7 @@ dd {
   padding: 10px 16px;
   border-radius: 8px;
   background: var(--lavender);
-  color: #0b0d12;
+  color: var(--bg);
   font-weight: 700;
 }
 
@@ -166,7 +168,7 @@ dd {
   display: block;
   height: 100%;
   width: 0;
-  background: linear-gradient(90deg, var(--lavender), var(--blue), var(--violet));
+  background: linear-gradient(90deg, var(--lavender), var(--blue), var(--lavender));
   box-shadow: 0 0 12px rgba(167, 139, 250, 0.7);
 }
 
@@ -312,6 +314,31 @@ dd {
   transform: translateY(-50%) scale(1);
 }
 
+.nav-resume {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 6px;
+  padding: 7px 11px;
+  border: 1px solid rgba(167, 139, 250, 0.28);
+  border-radius: 8px;
+  color: var(--lavender);
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.nav-resume svg {
+  width: 13px;
+  height: 13px;
+}
+
+.nav-resume:hover {
+  color: var(--lavender-light);
+  border-color: var(--line-strong);
+  background: rgba(167, 139, 250, 0.08);
+}
+
 .nav-actions {
   display: flex;
   align-items: center;
@@ -438,12 +465,12 @@ dd {
 
 .btn-primary {
   background: var(--lavender);
-  color: #0b0d12;
+  color: var(--bg);
   box-shadow: 0 10px 30px -12px rgba(167, 139, 250, 0.65);
 }
 
 .btn-primary:hover {
-  background: #c4b5fd;
+  background: var(--lavender-light);
   box-shadow: 0 14px 36px -12px rgba(167, 139, 250, 0.8);
 }
 
@@ -459,36 +486,9 @@ dd {
   color: var(--lavender);
 }
 
-.btn.is-pending {
-  cursor: not-allowed;
-  color: var(--dim);
-  border-style: dashed;
-}
-
-.btn.is-pending:hover {
-  transform: none;
-  border-color: var(--line);
-  background: rgba(255, 255, 255, 0.015);
-  color: var(--dim);
-}
-
-.btn-pending {
-  padding: 1px 6px;
-  border-radius: 4px;
-  background: rgba(167, 139, 250, 0.14);
-  color: var(--violet);
-  font-size: 0.62rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.btn.is-pending.is-ready {
-  cursor: pointer;
-  border-style: solid;
-  color: var(--text);
-}
-
-.btn.is-pending.is-ready .btn-pending {
+/* resume controls stay out of the layout until /resume.pdf is actually served */
+.btn.is-missing,
+.nav-resume.is-missing {
   display: none;
 }
 
@@ -508,7 +508,7 @@ dd {
 
 .text-link:hover {
   gap: 9px;
-  color: #c4b5fd;
+  color: var(--lavender-light);
 }
 
 .text-link-static {
@@ -564,7 +564,7 @@ dd {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--green);
+  background: var(--cyan);
   box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.55);
   animation: pulse 2.4s infinite;
 }
@@ -602,7 +602,7 @@ dd {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #3a3d4d;
+  background: var(--neutral);
 }
 
 .terminal-dots i:first-child { background: #ff5f57; }
@@ -643,7 +643,7 @@ dd {
 .hero-title {
   margin: 6px 0 22px;
   font-size: clamp(2.4rem, 5.2vw, 4.1rem);
-  background: linear-gradient(100deg, #ffffff 15%, #c4b5fd 55%, #a78bfa 100%);
+  background: linear-gradient(100deg, #ffffff 15%, var(--lavender-light) 55%, var(--lavender) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -661,7 +661,7 @@ dd {
 }
 
 .role-caret {
-  color: var(--violet);
+  color: var(--lavender);
 }
 
 .type-cursor {
@@ -731,7 +731,7 @@ dd {
 }
 
 .portrait-dots {
-  color: #3a3d4d;
+  color: var(--neutral);
   font-size: 0.6rem;
   letter-spacing: 2px;
 }
@@ -800,7 +800,7 @@ dd {
 
 .mini-output {
   margin-top: 4px;
-  color: var(--green);
+  color: var(--cyan);
   font-size: 0.68rem;
   overflow-wrap: anywhere;
 }
@@ -989,7 +989,7 @@ dd {
 }
 
 .skill-card-accent .skill-icon {
-  color: var(--violet);
+  color: var(--lavender);
   background: rgba(167, 139, 250, 0.08);
 }
 
@@ -1023,7 +1023,7 @@ dd {
 
 .chip-accent {
   border-color: rgba(167, 139, 250, 0.28);
-  color: #c4b5fd;
+  color: var(--lavender-light);
   background: rgba(167, 139, 250, 0.07);
 }
 
@@ -1083,7 +1083,7 @@ dd {
   aspect-ratio: 16 / 10;
   overflow: hidden;
   border-bottom: 1px solid var(--line);
-  background: #0d0f16;
+  background: var(--ink);
 }
 
 .project-media img {
@@ -1141,7 +1141,7 @@ dd {
   justify-content: center;
   background:
     radial-gradient(circle at 30% 20%, rgba(167, 139, 250, 0.18), transparent 55%),
-    linear-gradient(140deg, #14161f, #0d0f16);
+    linear-gradient(140deg, var(--ink-soft), var(--ink));
 }
 
 .media-logo img {
@@ -1175,9 +1175,9 @@ dd {
   opacity: 0.85;
 }
 
-.wallpaper-tiles span:nth-child(1) { background: linear-gradient(160deg, #c4b5fd, #5b21b6); }
-.wallpaper-tiles span:nth-child(2) { background: linear-gradient(160deg, #22d3ee, #0e7490); }
-.wallpaper-tiles span:nth-child(3) { background: linear-gradient(160deg, #a78bfa, #4c1d95); }
+.wallpaper-tiles span:nth-child(1) { background: linear-gradient(160deg, var(--lavender-light), #5b21b6); }
+.wallpaper-tiles span:nth-child(2) { background: linear-gradient(160deg, var(--cyan), #0e7490); }
+.wallpaper-tiles span:nth-child(3) { background: linear-gradient(160deg, var(--lavender), #4c1d95); }
 .wallpaper-tiles span:nth-child(4) { background: linear-gradient(160deg, #818cf8, #312e81); }
 
 .media-wallpaper::after {
@@ -1188,22 +1188,22 @@ dd {
   display: flex;
   align-items: center;
   padding: 18px 20px;
-  background: #0d0f16;
+  background: var(--ink);
 }
 
 .media-code pre {
   margin: 0;
   overflow: hidden;
-  color: #a1a1aa;
+  color: var(--muted);
   font-family: var(--font-mono);
   font-size: 0.62rem;
   line-height: 1.7;
 }
 
-.c-key { color: var(--violet); }
-.c-var { color: #c4b5fd; }
+.c-key { color: var(--lavender); }
+.c-var { color: var(--lavender-light); }
 .c-fn { color: var(--cyan); }
-.c-comment { color: #6b6b78; }
+.c-comment { color: var(--dim-2); }
 
 .media-code::after {
   background: linear-gradient(180deg, transparent 55%, rgba(11, 13, 18, 0.7));
@@ -1270,7 +1270,7 @@ dd {
   width: 14px;
   height: 14px;
   margin-top: 2px;
-  color: var(--violet);
+  color: var(--lavender);
 }
 
 /* ---------------- hackathons ---------------- */
@@ -1346,7 +1346,7 @@ dd {
 .log-tag-accent {
   border-color: rgba(34, 211, 238, 0.3);
   background: rgba(34, 211, 238, 0.06);
-  color: var(--green);
+  color: var(--cyan);
 }
 
 /* ---------------- dsa ---------------- */
@@ -1422,7 +1422,7 @@ dd {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  color: var(--green);
+  color: var(--cyan);
   font-size: 0.68rem;
 }
 
@@ -1440,11 +1440,11 @@ dd {
 }
 
 .topic-check {
-  color: var(--green);
+  color: var(--cyan);
 }
 
 .topic-progress {
-  color: var(--violet);
+  color: var(--lavender);
 }
 
 .dsa-footnote {
@@ -1590,7 +1590,7 @@ dd {
 .contact-copy h2 {
   margin: 12px 0 16px;
   font-size: clamp(2rem, 4.2vw, 3.1rem);
-  background: linear-gradient(100deg, #e9e8f5 20%, #c4b5fd 70%, #a78bfa);
+  background: linear-gradient(100deg, var(--text) 20%, var(--lavender-light) 70%, var(--lavender));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -1645,7 +1645,7 @@ dd {
 
 .contact-key {
   flex: 0 0 68px;
-  color: var(--violet);
+  color: var(--lavender);
   font-size: 0.72rem;
 }
 
@@ -1687,7 +1687,7 @@ dd {
 .contact-status {
   min-height: 18px;
   margin-top: 10px;
-  color: var(--green);
+  color: var(--cyan);
   font-size: 0.7rem;
 }
 
@@ -1859,7 +1859,7 @@ dd {
     padding: 12px;
     border: 1px solid var(--line);
     border-radius: 14px;
-    background: #0e1017;
+    background: var(--bg-soft);
     box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.95);
     opacity: 0;
     visibility: hidden;
@@ -1881,6 +1881,18 @@ dd {
 
   .nav-link::before {
     left: 2px;
+  }
+
+  .nav-resume {
+    margin: 6px 0 0;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+  }
+
+  .nav-resume svg {
+    width: 15px;
+    height: 15px;
   }
 
   .log-item {

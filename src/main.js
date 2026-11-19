@@ -504,33 +504,26 @@ function initMascotFollow(mascot) {
 }
 
 /* -------------------------------------------------------------
-   RESUME: only enable when a real PDF is available
+   RESUME: controls appear only when a real PDF is served
 ------------------------------------------------------------- */
 async function checkResume() {
-  const link = document.getElementById('resumeButton');
-  const status = document.getElementById('resumeStatus');
-  if (!link || !status) return;
+  const button = document.getElementById('resumeButton');
+  const navLinks = Array.from(document.querySelectorAll('[data-resume-link]'));
+  const controls = button ? [button, ...navLinks] : navLinks;
+  if (!controls.length) return;
 
-  const keepPending = () => {
-    link.setAttribute('aria-disabled', 'true');
-    link.classList.add('is-pending');
-    link.addEventListener('click', (event) => event.preventDefault());
-  };
+  const show = () => controls.forEach((el) => el.classList.remove('is-missing'));
+  const hide = () => controls.forEach((el) => el.classList.add('is-missing'));
 
   try {
     const response = await fetch('/resume.pdf', { method: 'HEAD', cache: 'no-store' });
     const type = response.headers.get('content-type') || '';
     if (!response.ok || !type.includes('pdf')) {
-      keepPending();
+      hide();
       return;
     }
-
-    link.removeAttribute('aria-disabled');
-    link.classList.remove('is-pending');
-    link.classList.add('is-ready');
-    link.title = 'Open resume PDF';
-    status.textContent = 'pdf';
+    show();
   } catch {
-    keepPending();
+    hide();
   }
 }
