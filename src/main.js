@@ -359,7 +359,7 @@ function initMascotReactions(mascot) {
       }
 
       if (target.closest(MASCOT_REACT_SELECTOR)) {
-        mascot.classList.add('is-waving');
+        mascot.classList.add('is-bouncing');
       }
     },
     { passive: true }
@@ -378,7 +378,7 @@ function initMascotReactions(mascot) {
 
       const interactive = target.closest(MASCOT_REACT_SELECTOR);
       if (interactive && !interactive.contains(event.relatedTarget)) {
-        mascot.classList.remove('is-waving');
+        mascot.classList.remove('is-bouncing');
       }
     },
     { passive: true }
