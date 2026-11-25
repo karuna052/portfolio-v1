@@ -1370,113 +1370,6 @@ dd {
   color: var(--sage-ink);
 }
 
-/* ---------------- dsa ---------------- */
-.dsa-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-  gap: 20px;
-  align-items: stretch;
-}
-
-.dsa-stats {
-  display: grid;
-  gap: 14px;
-}
-
-.dsa-stat {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 22px 22px 20px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--panel);
-  transition: border-color 0.25s ease, background 0.25s ease;
-}
-
-.dsa-stat:hover {
-  border-color: var(--line-strong);
-  background: var(--panel-2);
-}
-
-.dsa-stat-label {
-  color: var(--dim);
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.dsa-stat strong {
-  font-family: var(--font-display);
-  font-size: 1.65rem;
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  line-height: 1.15;
-}
-
-.dsa-stat-note {
-  color: var(--muted);
-  font-size: 0.76rem;
-}
-
-.dsa-stat .text-link {
-  margin-top: 8px;
-}
-
-.dsa-panel {
-  padding: 24px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: linear-gradient(180deg, #fffefb, #f7f3ea);
-}
-
-.dsa-panel-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 14px;
-  margin-bottom: 16px;
-  border-bottom: 1px solid var(--line);
-}
-
-.dsa-live {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  color: var(--sage-ink);
-  font-size: 0.68rem;
-}
-
-.topic-list {
-  display: grid;
-  gap: 11px;
-}
-
-.topic-list li {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  color: var(--muted);
-  font-size: 0.82rem;
-}
-
-.topic-check {
-  color: var(--sage-ink);
-}
-
-.topic-progress {
-  color: var(--lavender-ink);
-}
-
-.dsa-footnote {
-  margin-top: 20px;
-  padding-top: 14px;
-  border-top: 1px solid var(--line);
-  color: var(--dim);
-  font-size: 0.7rem;
-  line-height: 1.6;
-}
-
 /* ---------------- education ---------------- */
 .edu-timeline {
   display: grid;
@@ -1851,7 +1744,6 @@ dd {
   }
 
   .about-grid,
-  .dsa-grid,
   .contact-grid {
     grid-template-columns: 1fr;
   }
